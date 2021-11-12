@@ -32,6 +32,7 @@ class HomeController extends Controller
         $userOrders = Order::query()
             ->where('user_id', '=', auth()->user()->id)
             ->with('product', 'product.store')->orderByDesc('created_at')
+            //here we can use pagination
             ->get();
         return view('my-order', compact('userOrders'));
     }
