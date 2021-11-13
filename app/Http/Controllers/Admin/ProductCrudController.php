@@ -210,11 +210,11 @@ class ProductCrudController extends CrudController
         // execute the FormRequest authorization and validation, if one is required
         $request = $this->crud->validateRequest();
 
-        $request->request->add('user_id',backpack_auth()->user()->id);
         // insert item in the db
         $item = $this->crud->create($this->crud->getStrippedSaveRequest());
         $this->data['entry'] = $this->crud->entry = $item;
 
+        $this->crud->entry->update(['user_id'=>backpack_auth()->user()->id]);
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
 
